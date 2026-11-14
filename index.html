@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111715">
+<meta name="description" content="在光速只有 10 m/s 的日常街区中，亲自体验多普勒红蓝移与相对论加速。可离线运行的交互物理实验。">
+<title>慢光速实验室 · 当光速只有 10 m/s</title>
+<style>
+:root{color-scheme:dark;--bg:#111715;--panel:#1a211e;--line:#333d36;--text:#edf1e9;--muted:#9ca89d;--green:#d2ef9c;--blue:#88bfff;--red:#ff9b86;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--green);outline-offset:4px}button{color:inherit}button:disabled{opacity:.5}a{color:var(--green)}.shell{max-width:1600px;margin:auto;padding:0 32px 24px}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:12px}.brand{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600;letter-spacing:1px}.brand-icon{width:32px;height:32px;color:var(--green)}.brand small{font-size:10px;font-family:var(--mono);font-weight:400;color:var(--muted);letter-spacing:2px;margin-left:10px}.top-actions{display:flex;align-items:center;gap:22px}.constant{font-family:var(--mono);font-size:12px;color:var(--muted)}.constant b{font-size:15px;color:var(--green);font-weight:500}.text-btn{border:0;background:none;color:#c5cec4;font-size:12px;padding:8px 0;display:inline-flex;align-items:center;gap:6px}.text-btn:hover{color:var(--green)}.hero{display:flex;justify-content:space-between;align-items:center;padding:28px 0 25px;gap:20px}.eyebrow{font-size:10px;color:var(--green);font-family:var(--mono);letter-spacing:2px;margin-bottom:9px}.hero h1{font-weight:500;font-size:clamp(23px,2.4vw,35px);letter-spacing:1px;margin:0}.hero h1 span{color:var(--green)}.hero p{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.6}.primary-btn{display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--green);border-radius:7px;background:var(--green);color:#25321d;padding:11px 17px;font-size:12px;font-weight:600;white-space:nowrap}.primary-btn:hover{background:#e2ffc2}.primary-btn.active{background:transparent;color:var(--green)}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}.scene-card{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden}.scene-bar{height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 18px;gap:10px}.scene-title{display:flex;align-items:center;gap:9px;font-size:12px}.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 9px #d2ef9c33}.scene-title small{color:var(--muted);font-size:10px;margin-left:3px}.scene-tools{display:flex;align-items:center;gap:14px}.switch-label{display:flex;align-items:center;gap:7px;font-size:11px;color:#cbd3c8;cursor:pointer}.switch-label input{position:absolute;opacity:0;width:1px;height:1px}.switch{height:16px;width:28px;border-radius:20px;background:#555d55;display:inline-block;position:relative}.switch:after{content:"";position:absolute;left:3px;top:3px;width:10px;height:10px;border-radius:50%;background:#e9eee5;transition:transform .2s}.switch-label input:checked+.switch{background:#6e8f4c}.switch-label input:checked+.switch:after{transform:translateX(12px);background:var(--green)}.switch-label input:focus-visible+.switch{outline:2px solid var(--green);outline-offset:3px}.icon-btn{width:28px;height:28px;border:1px solid #465044;border-radius:5px;background:transparent;display:inline-grid;place-items:center;font-size:14px}.icon-btn:hover{background:#333d32}.viewport{position:relative;height:clamp(380px,39.6vw,590px);background:#cbd9da;overflow:hidden;isolation:isolate}.viewport:focus{outline:none}.viewport>canvas{display:block;width:100%;height:100%;cursor:grab}.viewport>canvas:active{cursor:grabbing}.corner-top{position:absolute;top:16px;left:17px;display:flex;gap:8px;align-items:center;pointer-events:none}.glass{background:#17211dd4;backdrop-filter:blur(12px);border:1px solid #d4e2d129;border-radius:6px}.scene-tag{padding:7px 10px;font-size:10px;letter-spacing:.5px;color:#eff5ec}.scene-tag .sub{color:#b8c6b8;margin-left:6px}.crosshair{position:absolute;top:46%;left:50%;width:15px;height:15px;transform:translate(-50%,-50%);opacity:.6;pointer-events:none}.crosshair:before,.crosshair:after{content:"";position:absolute;background:#fff;box-shadow:0 1px 2px #0008}.crosshair:before{width:1px;height:11px;left:7px;top:2px}.crosshair:after{height:1px;width:11px;left:2px;top:7px}.rear{position:absolute;right:16px;top:16px;width:184px;overflow:hidden;box-shadow:0 4px 20px #12201933}.rear-top{height:26px;padding:0 9px;display:flex;justify-content:space-between;align-items:center;font-size:9px;color:#d3decf}.rear canvas{display:block;width:100%;height:90px;background:#b4cbce}.rear-bottom{font-family:var(--mono);font-size:10px;background:#19231f;padding:5px 9px;display:flex;justify-content:space-between;color:#c4cec1}.blue-text{color:var(--blue)}.red-text{color:var(--red)}.view-readout{position:absolute;bottom:16px;left:17px;width:210px;padding:12px 13px;pointer-events:none}.readout-header{font-size:10px;color:#bdcbbc;display:flex;justify-content:space-between;margin-bottom:9px}.readout-main{display:flex;justify-content:space-between;align-items:baseline;font-size:12px}.readout-main strong{font-family:var(--mono);font-size:20px;font-weight:500}.readout-main small{font-size:10px;color:#bac5b6}.spectrum{height:5px;border-radius:3px;background:linear-gradient(90deg,#7853d6,#386afa,#49d2ff,#a4df6a,#f1dc5f,#eb8047,#db4645);position:relative;margin-top:10px}.spectrum:after{content:"";position:absolute;left:var(--mark,50%);top:-3px;width:2px;height:11px;background:white;box-shadow:0 0 4px #0006;transition:left .1s}.spectral-caption{font-size:8px;display:flex;justify-content:space-between;color:#aab7a6;margin-top:5px}.minimap{position:absolute;bottom:16px;right:16px;width:130px;height:130px;overflow:hidden}.minimap canvas{display:block;width:100%;height:100%}.minimap-label{position:absolute;top:7px;left:8px;font-family:var(--mono);font-size:8px;color:#bac8b4}.map-legend{position:absolute;bottom:6px;left:9px;font-size:8px;color:#bac8b4}.map-legend i{display:inline-block;width:10px;height:2px;background:var(--green);vertical-align:middle;margin-right:4px}.map-legend b{display:inline-block;width:10px;height:2px;background:#8bb6e9;vertical-align:middle;margin:0 4px 0 8px}.hint{position:absolute;bottom:155px;left:17px;padding:10px 12px;font-size:11px;line-height:1.8;color:#e5ecde;max-width:280px;pointer-events:none;transition:opacity .5s}.hint kbd{padding:1px 4px;border:1px solid #66745e;border-radius:3px;font-family:var(--mono);font-size:10px;color:var(--green)}.hint small{color:#bac6b3;font-size:9px}.toast{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:12px 20px;border-radius:6px;background:#152019e8;color:#eff5e8;border:1px solid #c8ddbd44;font-size:12px;opacity:0;pointer-events:none;transition:opacity .25s;text-align:center}.toast.visible{opacity:1}.pause-screen{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#0d181a55;backdrop-filter:blur(3px);z-index:4}.pause-screen.show{display:flex}.pause-box{padding:25px 40px;text-align:center;background:#16211ee8;border:1px solid #5c6f58;border-radius:12px}.pause-box h3{font-size:21px;font-weight:500;margin:0 0 14px}.pause-box p{font-size:11px;color:var(--muted);margin-top:12px}.scene-status{padding:9px 17px;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:9px;background:#18201b;border-top:1px solid #333d36}.scene-status b{font-weight:400;color:#c3d2b9}.controls{padding:16px 18px;display:flex;gap:22px;justify-content:space-between;align-items:center}.keyboard{display:flex;gap:15px;align-items:center}.keycluster{display:grid;grid-template-columns:repeat(3,27px);grid-template-rows:repeat(2,25px);gap:3px}.key{display:flex;align-items:center;justify-content:center;border:1px solid #465040;background:#252d24;box-shadow:0 2px 0 #10180f;border-radius:4px;color:#d8e1d1;font-size:11px;font-family:var(--mono);user-select:none;touch-action:none}.key[data-control="forward"]{grid-column:2}.key[data-control="left"]{grid-column:1;grid-row:2}.key[data-control="back"]{grid-column:2;grid-row:2}.key[data-control="right"]{grid-column:3;grid-row:2}.key.pressed{color:#1b2e12;background:var(--green);border-color:var(--green);box-shadow:none;transform:translateY(1px)}.keyboard-title{font-size:11px;margin-bottom:6px}.keyboard-sub{font-size:9px;color:var(--muted);line-height:1.8}.keyboard-sub kbd{font-size:9px;font-family:var(--mono);color:#d3dccb}.force-control{max-width:245px;flex:1;min-width:130px}.force-label{display:flex;justify-content:space-between;align-items:baseline;font-size:10px;color:#b9c5b4;margin-bottom:11px}.force-label strong{color:var(--text);font-family:var(--mono);font-size:12px;font-weight:400}.force-control input{display:block;width:100%;height:3px;accent-color:var(--green);cursor:pointer;margin:0}.force-range{display:flex;justify-content:space-between;color:#8f9b88;font-size:8px;font-family:var(--mono);margin-top:8px}.mini-actions{display:flex;gap:7px}.small-btn{border:1px solid #465040;border-radius:5px;background:transparent;font-size:10px;padding:8px 10px;white-space:nowrap;line-height:1.6}.small-btn:hover{border-color:var(--green);color:var(--green)}.small-btn kbd{font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:6px}.telemetry{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:20px 20px 16px}.panel-heading{font-size:10px;letter-spacing:1px;color:#c1cdb9;display:flex;align-items:center;justify-content:space-between;margin-bottom:21px}.panel-heading span{font-family:var(--mono);font-size:9px;color:#90a184}.speed-caption{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}.speed-number{font-size:56px;line-height:1.12;font-family:var(--mono);font-weight:400;letter-spacing:-3px;margin:8px 0 9px;color:var(--green)}.speed-number small{font-size:14px;color:#a6b19e;letter-spacing:0;margin-left:7px}.speed-meter{height:7px;position:relative;background:#303c2c;border-radius:4px;overflow:hidden;margin-bottom:8px}.speed-fill{background:var(--green);height:100%;width:0;border-radius:4px;transition:width .08s}.speed-labels{display:flex;justify-content:space-between;font-size:9px;font-family:var(--mono);color:#99a88f}.speed-labels b{color:var(--green);font-weight:400}.presets{display:flex;gap:5px;margin-top:14px}.preset{flex:1;padding:6px 0;border:1px solid #3b4935;border-radius:4px;font-size:9px;font-family:var(--mono);background:#202b1c;color:#b8c9ab}.preset:hover,.preset.active{border-color:#b4d08f;color:var(--green);background:#2c3b24}.preset-caption{font-size:8px;color:#8b9983;margin-top:6px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:17px 14px;margin-top:21px;padding-top:18px;border-top:1px solid var(--line)}.metric-label{font-size:9px;color:var(--muted);margin-bottom:7px}.metric-value{font-size:20px;font-family:var(--mono);letter-spacing:-.5px}.metric-value small{font-size:9px;color:#9fac97;letter-spacing:0;margin-left:4px}.metric-caption{font-size:8px;color:#87977f;line-height:1.5;margin-top:5px}.metric-value.amber{color:#f1c793}.mass-strip{margin-top:15px;border:1px solid #46503a;border-radius:5px;background:#242d20;padding:9px 10px;font-size:9px;color:#c5d3b9;line-height:1.65}.mass-strip strong{color:var(--green);font-weight:500}.chart-section{border-top:1px solid var(--line);margin-top:17px;padding-top:17px}.chart-heading{font-size:10px;display:flex;justify-content:space-between;align-items:center}.chart-heading b{font-family:var(--mono);font-size:12px;font-weight:400;color:#f1c793}.chart{height:104px;width:100%;display:block;margin-top:8px}.chart-legend{display:flex;gap:15px;font-size:8px;color:#99a88f;margin-top:1px}.chart-legend i{display:inline-block;width:12px;height:2px;background:#e8bc8c;margin-right:5px;vertical-align:middle}.chart-legend span:last-child i{background:repeating-linear-gradient(90deg,#788874 0,#788874 3px,transparent 3px,transparent 5px)}.clock-row{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display:flex;justify-content:space-between;font-size:9px;color:#99a88f}.clock-row b{font-family:var(--mono);color:#c5d4ba;font-weight:400}.guide{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.guide-card{padding:18px 19px;border:1px solid var(--line);border-radius:9px;background:#151d17}.guide-top{display:flex;gap:9px;align-items:center;margin-bottom:8px}.guide-num{font-family:var(--mono);font-size:10px;color:#7c8a73}.guide-card h2{font-size:12px;font-weight:500;margin:0}.guide-card p{font-size:10px;color:var(--muted);line-height:1.9;margin:0}.guide-card .accent{color:var(--green)}.dotblue,.dotred{width:6px;height:6px;border-radius:100%;display:inline-block;margin:0 3px 1px 0;background:var(--blue)}.dotred{background:var(--red);margin-left:6px}.footer{display:flex;justify-content:space-between;gap:18px;color:#7e8b76;font-size:9px;padding:18px 1px 0;line-height:1.8}.footer span:last-child{font-family:var(--mono);font-size:8px;letter-spacing:1px}dialog{max-width:650px;width:calc(100% - 36px);background:#1c251d;color:var(--text);border:1px solid #5b6c50;border-radius:14px;padding:28px 30px;max-height:85vh;overflow:auto;box-shadow:0 24px 80px #0009}dialog::backdrop{background:#070e0bd9;backdrop-filter:blur(5px)}.modal-top{display:flex;justify-content:space-between;align-items:center;gap:15px}dialog h2{font-size:21px;font-weight:500;margin:0}dialog h3{font-size:13px;color:var(--green);font-weight:500;margin:23px 0 8px}dialog p{font-size:12px;line-height:1.9;color:#bac8b0}dialog .equation{font-family:var(--mono);background:#111b13;border:1px solid #3a4932;border-radius:5px;padding:12px 14px;color:#dbeccc;font-size:12px;line-height:1.9}dialog a{font-size:11px}dialog .footnote{font-size:10px;color:#9aaa8f}svg{vertical-align:middle}.touch-note{display:none}.hidden{display:none!important}@media(min-width:1450px){.telemetry{padding-top:23px}.chart{height:140px}.chart-section{margin-top:24px;padding-top:20px}.metrics{gap:22px 16px}.mass-strip{margin-top:20px}.clock-row{margin-top:23px;padding-top:18px}.panel-heading{margin-bottom:24px}}
+@media(max-width:1180px){.shell{padding:0 22px 18px}.workspace{grid-template-columns:minmax(0,1fr) 272px;gap:12px}.telemetry{padding:17px}.controls{gap:12px;padding:14px 12px}.keyboard{gap:8px}.keyboard-title{font-size:10px}.mini-actions{flex-direction:column;gap:4px}.small-btn{padding:4px 9px}.force-control{min-width:110px}.view-readout{width:190px}.rear{width:158px}.rear canvas{height:78px}.minimap{width:112px;height:112px}.hero h1{font-size:28px}.chart{height:90px}.speed-number{font-size:50px}.metrics{gap:13px 10px;margin-top:15px;padding-top:15px}.mass-strip{margin-top:12px}.chart-section{margin-top:12px;padding-top:12px}.clock-row{margin-top:12px;padding-top:12px}.panel-heading{margin-bottom:15px}.hero{padding:23px 0}.scene-title small{display:none}.scene-status{font-size:8px}.scene-status span:last-child{display:none}}
+@media(max-width:900px){.workspace{grid-template-columns:minmax(0,1fr) 250px}.scene-tools{gap:8px}.scene-bar{padding:0 12px}.viewport{height:450px}.keyboard-sub{font-size:8px}.keyboard-sub span{display:none}.controls{flex-wrap:wrap}.keyboard{flex:1}.force-control{max-width:none;flex:1;min-width:150px}.mini-actions{flex-direction:row;width:100%;justify-content:flex-end;margin-top:2px}.small-btn{padding:6px 12px}.hero h1{font-size:24px}.top-actions{gap:14px}.brand small{display:none}.hint{max-width:220px;font-size:10px}.guide{gap:10px}.guide-card{padding:15px}.guide-card p{font-size:9px}.scene-title{font-size:11px}.scene-status{padding:8px 12px}}
+@media(max-width:720px){.shell{padding:0 14px 18px}.topbar{height:63px}.brand{font-size:14px;gap:8px;letter-spacing:0}.brand-icon{width:27px;height:27px}.constant{display:none}.top-actions{gap:13px}.text-btn{font-size:10px}.hero{padding:22px 0 18px;align-items:flex-end}.hero h1{font-size:23px;letter-spacing:0;line-height:1.5;max-width:270px}.hero p{font-size:10px;max-width:240px;margin-top:6px}.eyebrow{font-size:8px;letter-spacing:1.5px}.primary-btn{font-size:10px;padding:9px 10px;gap:5px}.workspace{display:flex;flex-direction:column}.scene-card{width:100%}.viewport{height:430px}.telemetry{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:0 23px}.panel-heading{grid-column:1/-1;margin-bottom:17px}.speed-section{grid-column:1}.metrics{grid-column:2;grid-row:2;margin:0;padding:0;border:0;align-content:start}.speed-number{font-size:45px;margin-top:7px}.metric-value{font-size:19px}.mass-strip{grid-column:1/-1;margin-top:17px}.chart-section{grid-column:1/-1;margin-top:16px}.chart{height:116px}.clock-row{grid-column:1/-1}.guide{grid-template-columns:1fr;margin-top:13px;gap:9px}.guide-card{padding:14px 15px;display:grid;grid-template-columns:135px 1fr;gap:10px;align-items:start}.guide-top{margin:1px 0}.guide-card p{font-size:10px}.guide-card h2{font-size:11px}.footer{font-size:8px}.footer span:last-child{display:none}.scene-bar{height:47px}.keycluster{grid-template-columns:repeat(3,34px);grid-template-rows:repeat(2,31px);gap:4px}.keyboard{gap:10px}.key{font-size:12px}.force-control{min-width:120px}.keyboard-sub{font-size:9px}.mini-actions{margin-top:5px}.rear{width:135px;top:12px;right:12px}.rear canvas{height:70px}.corner-top{top:12px;left:12px;max-width:calc(100% - 160px)}.scene-tag{font-size:9px;padding:6px 8px}.scene-tag .sub{display:none}.view-readout{bottom:12px;left:12px;width:183px}.minimap{right:12px;bottom:12px;width:100px;height:100px}.hint{left:12px;bottom:143px;font-size:10px;padding:8px 10px;max-width:220px}.touch-note{display:inline}.scene-status{font-size:8px}.controls{padding:14px}.scene-tools{gap:10px}dialog{padding:22px}dialog h2{font-size:18px}}
+@media(max-width:720px){.hero{display:block;position:relative}.hero h1{max-width:none;font-size:clamp(19px,5.9vw,23px)}.hero .primary-btn{position:absolute;right:0;bottom:19px}.viewport{height:380px}.controls{display:grid;grid-template-columns:1fr auto;gap:15px 12px}.keyboard{grid-column:1/-1;gap:18px}.keyboard-title{font-size:11px}.keyboard-sub{font-size:10px}.force-control{min-width:0;max-width:none}.mini-actions{width:auto;margin:0;gap:5px}.small-btn{padding:6px 9px}.small-btn kbd{display:none}}
+@media(max-width:370px){.hero{gap:6px}.hero h1{font-size:21px}.hero .primary-btn svg{display:none}.keyboard-title{font-size:10px}.keyboard{gap:12px}.rear{width:120px}.guide-card{grid-template-columns:120px 1fr}.metrics{gap:13px 8px}.telemetry{gap:0 15px}.small-btn{padding:6px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+.effects-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 17px;background:#151e18;border-top:1px solid var(--line)}.view-modes{display:flex;padding:3px;border:1px solid #43523a;border-radius:6px;background:#101a13;gap:3px}.mode-btn{border:0;border-radius:3px;background:transparent;color:#a7b59d;font-size:10px;padding:6px 10px}.mode-btn.active{color:#e0f4be;background:#36482a}.effect-note{font-size:9px;color:#9bad8e}.quality-select{border:1px solid #46543e;background:#222d20;border-radius:4px;padding:5px;color:#c9d7bd;font-size:10px;max-width:90px}.beta-form{display:flex;align-items:center;gap:7px;margin-top:13px}.beta-form label{font-family:var(--mono);font-size:11px;color:#becbb2;white-space:nowrap}.beta-form input{min-width:0;width:100%;background:#101910;color:#e0f4be;border:1px solid #50613e;border-radius:4px;padding:7px 9px;font-family:var(--mono);font-size:12px}.beta-form button{border:1px solid #748c56;background:#33472a;color:#d6edb9;padding:7px 11px;border-radius:4px;font-size:10px;white-space:nowrap}.beta-feedback{color:#97aa89;font-size:8px;line-height:1.6;margin-top:6px}.beta-feedback.error{color:var(--red)}.contraction-card{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}.contraction-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px}.contraction-top strong{font-family:var(--mono);font-weight:500;font-size:17px;color:var(--green)}.ruler-row{display:flex;align-items:center;gap:10px;font-size:8px;color:#99a88e;margin-top:11px}.ruler-row>span{width:43px;flex-shrink:0}.ruler-track{flex:1;height:9px;position:relative;border-left:1px solid #92a17f;border-right:1px solid #92a17f;background:repeating-linear-gradient(90deg,#879b7133 0,#879b7133 1px,transparent 1px,transparent 10%)}.ruler-track:after{content:"";position:absolute;left:0;right:0;top:4px;height:1px;background:#7a8a6a}.ruler-track b{position:absolute;z-index:1;left:0;top:0;height:9px;background:#badc7d;border:1px solid #e3ffb4;min-width:1px;width:100%}.contraction-caption{font-size:8px;color:#9aaa8f;line-height:1.8;margin-top:9px}.contraction-caption button{border:0;background:none;padding:0;color:#c7e3a5;font-size:8px;text-decoration:underline}.speed-number.precise{font-size:39px;letter-spacing:-2px}.render-error{position:absolute;inset:0;background:#1a271e;color:#d4e2cb;display:flex;align-items:center;justify-content:center;padding:30px;font-size:13px;line-height:2;text-align:center;z-index:5}.corner-top{flex-direction:column;align-items:flex-start}.optics-tag{font-size:9px;color:#d2e6be;padding:6px 9px}.crosshair{top:43%}.scene-status{flex-wrap:wrap}.viewport:fullscreen{width:100vw;height:100vh}.workspace{align-items:stretch}.telemetry{align-self:start}
+@media(max-width:1180px){.effects-bar{padding:8px 12px}.effect-note{font-size:8px}.mode-btn{padding:6px 8px}.telemetry .metric-value{font-size:18px}}
+@media(max-width:900px){.effects-bar{flex-wrap:wrap;gap:6px}.effect-note{display:none}.quality-select{max-width:75px}.scene-tools{gap:7px}.mode-btn{font-size:9px;padding:6px 8px}}
+@media(max-width:720px){.contraction-card{grid-column:1/-1}.beta-form{flex-wrap:wrap;gap:5px}.beta-form input{width:calc(100% - 24px);flex:1}.beta-form button{width:100%;padding:5px}.beta-feedback{font-size:7px}.scene-tools{gap:9px}.effects-bar{padding:8px 12px}.effect-note{display:block;font-size:8px}.view-modes{gap:1px}.mode-btn{font-size:9px;padding:6px 7px}.contraction-top strong{font-size:16px}.ruler-row{font-size:9px}.contraction-caption{font-size:9px}.speed-number.precise{font-size:28px}.optics-tag{font-size:8px;padding:5px 7px}.corner-top{gap:5px}.mass-strip{margin-top:13px}}
+.pause-screen{inset:auto;top:16px;left:50%;transform:translateX(-50%);background:none;backdrop-filter:none;pointer-events:none}.pause-box{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;pointer-events:auto}.pause-box h3{font-size:11px;margin:0;white-space:nowrap}.pause-box .primary-btn{font-size:9px;padding:5px 9px}.pause-box p{display:none}@media(max-width:720px){.pause-screen{top:131px}.pause-box{padding:7px 10px}.pause-box h3{font-size:10px}}
+@media(max-width:390px){.effect-note{display:none}.scene-tools{gap:6px}.scene-title{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="topbar">
+  <div class="brand"><svg class="brand-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true"><circle cx="18" cy="18" r="4" fill="currentColor"/><ellipse cx="18" cy="18" rx="16" ry="7" stroke="currentColor" transform="rotate(-35 18 18)"/><ellipse cx="18" cy="18" rx="16" ry="7" stroke="currentColor" transform="rotate(35 18 18)"/></svg>慢光速实验室<small>SLOW LIGHT LAB</small></div>
+  <div class="top-actions"><div class="constant">这个世界的光速 &nbsp; <b>c = 10 m/s</b></div><button class="text-btn" id="infoButton"><span aria-hidden="true">ⓘ</span> 模型说明</button><button class="text-btn" id="downloadButton"><span aria-hidden="true">↓</span> HTML</button></div>
+ </header>
+ <section class="hero"><div><div class="eyebrow">交互物理 / 01 &nbsp; · &nbsp; 狭义相对论</div><h1>当光速，<span>只比奔跑快一点。</span></h1><p>在熟悉的街角加速，看看光的颜色如何改变，感受速度的极限。</p></div><button class="primary-btn" id="demoButton"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5L10 6L3 10.5V1.5Z" fill="currentColor"/></svg><span>自动演示</span></button></section>
+ <main class="workspace">
+ <section class="scene-card" aria-label="街区互动场景">
+  <div class="scene-bar"><div class="scene-title"><span class="live-dot" id="liveDot"></span>街角漫游<small>第一人称 · 午后街区</small></div><div class="scene-tools"><label class="switch-label"><input id="dopplerToggle" type="checkbox" checked><span class="switch"></span>红蓝移</label><select id="qualitySelect" class="quality-select" aria-label="渲染画质"><option value="1">流畅 1×</option><option value="2" selected>高清 2×</option><option value="3">超清 3×</option></select><button class="icon-btn" id="fullscreenButton" title="全屏场景" aria-label="全屏场景">⛶</button></div></div>
+  <div class="effects-bar"><div class="view-modes" role="group" aria-label="相对论视图"><button class="mode-btn active" data-view="optical" aria-pressed="true">光学所见</button><button class="mode-btn" data-view="measurement" aria-pressed="false">长度测量</button><button class="mode-btn" data-view="classic" aria-pressed="false">普通对照</button></div><span class="effect-note" id="effectNote">光行差 · 按光线方向逐像素计算</span></div>
+  <div class="viewport" id="viewport" tabindex="0" aria-label="第一人称街区。W 或上方向键向前施力，S 或下方向键向后施力，A D 或左右方向键转向，B 制动，空格暂停，R 重置。">
+   <canvas id="world" aria-label="慢光速世界的三维街景"></canvas>
+   <div class="corner-top"><div class="scene-tag glass">c = 10 m/s<span class="sub">日常尺度 · 60 kg 观察者</span></div><div class="optics-tag glass" id="opticsTag">光学所见 · 光行差已开启</div></div>
+   <div class="rear glass"><div class="rear-top"><span>后方视野</span><span id="rearShift">无频移</span></div><canvas id="rearCanvas" aria-label="后方街景"></canvas><div class="rear-bottom"><span>550 nm →</span><span id="rearWave">550 nm</span></div></div>
+   <div class="crosshair" aria-hidden="true"></div>
+   <div class="hint glass" id="startHint">按住 <kbd>W</kbd> 施力，<kbd>A</kbd> <kbd>D</kbd> 转向<br><small>松手会滑行 · <kbd>S</kbd> 向后施力 · <kbd>B</kbd> 制动<br><span class="touch-note">也可长按下方的方向按钮。</span></small></div>
+   <div class="view-readout glass"><div class="readout-header"><span>视线中心 · 参考绿光</span><span id="frontShift">无频移</span></div><div class="readout-main"><span><strong id="frontWave">550</strong> <small>nm</small></span><small id="dopplerValue">D = 1.00</small></div><div class="spectrum" id="spectrum"></div><div class="spectral-caption"><span>380 紫外侧</span><span>780 红外侧</span></div></div>
+   <div class="minimap glass"><canvas id="mapCanvas" aria-label="人物位置、朝向及速度方向的俯视地图"></canvas><span class="minimap-label">N ↑ &nbsp; 街区地图</span><span class="map-legend"><i></i>朝向<b></b>速度</span></div>
+   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+   <div class="pause-screen" id="pauseScreen"><div class="pause-box"><h3>时间暂停了。</h3><button class="primary-btn" id="resumeButton" style="margin:auto">继续探索</button><p>也可按空格继续</p></div></div>
+  </div>
+  <div class="scene-status"><span id="motionStatus"><b>静止</b> &nbsp; · &nbsp; 按住 W 或 ↑ 开始加速</span><span id="colorStatus">逐像素频移示意 · 保留明暗细节</span></div>
+  <div class="controls">
+   <div class="keyboard"><div class="keycluster" aria-label="长按方向按钮控制人物"><button class="key" data-control="forward" aria-label="向前施力，W 或上方向键">W</button><button class="key" data-control="left" aria-label="向左转向，A 或左方向键">A</button><button class="key" data-control="back" aria-label="向后施力，S 或下方向键">S</button><button class="key" data-control="right" aria-label="向右转向，D 或右方向键">D</button></div><div><div class="keyboard-title">前后施力 · 左右转向</div><div class="keyboard-sub">也支持方向键<span> ↑ ↓ ← →</span><br>转向改变朝向，速度保留惯性</div></div></div>
+   <div class="force-control"><label class="force-label" for="forceSlider"><span>施力大小</span><strong><span id="forceNumber">180</span> N</strong></label><input id="forceSlider" type="range" min="60" max="600" step="10" value="180" aria-label="施力大小，牛顿"><div class="force-range"><span>60 N</span><span>600 N</span></div></div>
+   <div class="mini-actions"><button class="small-btn" id="brakeButton" title="长按强制动：制动力随速度自适应，约 0.84 秒内停止">强制动<kbd>B</kbd></button><button class="small-btn" id="pauseButton">暂停<kbd>Space</kbd></button><button class="small-btn" id="resetButton">重置<kbd>R</kbd></button></div>
+  </div>
+ </section>
+ <aside class="telemetry" aria-label="实时物理数据">
+  <div class="panel-heading">实时观测<span id="runningStatus">● LIVE</span></div>
+  <div class="speed-section"><div class="speed-caption"><span>相对街区的速度</span><span>v</span></div><div class="speed-number" id="speedDisplay"><span id="speedNumber">0.00</span><small>m/s</small></div><div class="speed-meter"><div class="speed-fill" id="speedFill"></div></div><div class="speed-labels"><span>0</span><b id="betaNumber">0.0% c</b><span>10 · c</span></div><div class="presets" aria-label="瞬时设置体验速度"><button class="preset active" data-beta="0">静止</button><button class="preset" data-beta="0.5">0.5c</button><button class="preset" data-beta="0.9">0.9c</button><button class="preset" data-beta="0.98">0.98c</button></div><form class="beta-form" id="betaForm" novalidate><label for="betaInput">β =</label><input id="betaInput" type="number" min="0" max="1" step="any" value="0.9" inputmode="decimal" aria-label="目标 beta，范围零至一，不含一" aria-describedby="betaFeedback"><button type="submit">设定</button></form><div class="beta-feedback" id="betaFeedback" role="status">0 ≤ β &lt; 1 · 按 Enter 沿身体朝向瞬时设速</div></div>
+  <div class="metrics"><div><div class="metric-label">洛伦兹因子 γ</div><div class="metric-value" id="gammaNumber">1.00<small>×</small></div><div class="metric-caption">相对论效应的强度</div></div><div><div class="metric-label">相对论质量 γm₀</div><div class="metric-value amber" id="massNumber">60.0<small>kg</small></div><div class="metric-caption">街区系中的 E / c²</div></div><div><div class="metric-label">同向加速能力</div><div class="metric-value" id="accelNumber">3.00<small>m/s²</small></div><div class="metric-caption">当前所选力沿速度施加时</div></div><div><div class="metric-label">实际施力</div><div class="metric-value" id="appliedNumber">0<small>N</small></div><div class="metric-caption" id="appliedCaption">松手，保持惯性运动</div></div></div>
+  <div class="mass-strip">静质量始终为 <strong>m₀ = 60 kg</strong>。<br>增加的是能量与动量，人物不会变胖。</div>
+  <div class="contraction-card"><div class="contraction-top"><span>沿运动方向的 20 m 标尺</span><strong id="contractedLength">20.00 m</strong></div><div class="ruler-row"><span>街区系</span><div class="ruler-track"></div></div><div class="ruler-row"><span>自身同刻</span><div class="ruler-track"><b id="contractedBar"></b></div></div><div class="contraction-caption">L / L₀ = 1 / γ = <span id="contractionFactor">1.000</span>。横向长度不变。<br><button id="measurementButton">切换到长度测量，查看空间如何收缩 ↗</button></div></div>
+  <div class="chart-section"><div class="chart-heading"><span>同样的力，还能加速多少？</span><b id="accelPercent">100%</b></div><canvas class="chart" id="accelChart" aria-label="加速能力随速度接近光速而下降的曲线"></canvas><div class="chart-legend"><span><i></i>相对论 a / a₀</span><span><i></i>牛顿力学</span></div></div>
+  <div class="clock-row"><span>街区 <b id="labClock">0.0 s</b></span><span>自身 <b id="properClock">0.0 s</b></span></div>
+ </aside>
+ </main>
+ <section class="guide" aria-label="探索提示"><article class="guide-card"><div class="guide-top"><span class="guide-num">01</span><h2>先看，光的颜色</h2></div><p>按住 W 朝前加速，比较主视野与后方视野。<span class="dotblue"></span>迎面蓝移，<span class="dotred"></span>背后红移。波长超出可见光时仍用伪彩标记。</p></article><article class="guide-card"><div class="guide-top"><span class="guide-num">02</span><h2>再感受，速度的极限</h2></div><p>保持同样的力，观察加速能力逐渐下降。到 <span class="accent">0.9c</span> 时，同向加速能力仅剩静止时的 <span class="accent">8.3%</span>。</p></article><article class="guide-card"><div class="guide-top"><span class="guide-num">03</span><h2>对照，形状与尺度</h2></div><p>切换“光学所见 / 长度测量 / 普通对照”比较形状。B 强制动约 0.84 s 内停下；S 则以普通反向力减速。</p></article></section>
+ <footer class="footer"><span>离线单文件 · 光学视图按洛伦兹光行差变换；长度测量显示同刻空间。颜色为逐像素频移示意，保留不可见波段的可辨识度。</span><span>A SMALL WORLD. A DIFFERENT SPEED LIMIT.</span></footer>
+</div>
+<dialog id="modelDialog" aria-labelledby="modelTitle">
+<div class="modal-top"><h2 id="modelTitle">这个世界，如何运行？</h2><button class="icon-btn" id="closeDialog" aria-label="关闭模型说明">×</button></div>
+<p>光速 c = 10 m/s，人物静质量 m₀ = 60 kg。街景、公交车和装饰人物都静止于街区系，观察者可自由施力与转向。所有资源、纹理和程序均内嵌，可断网打开。</p>
+<h3>01 / 光学所见：沿光锥观察</h3>
+<div class="equation">cos θ′ = (cos θ + β) / (1 + β cos θ)<br>D = γ(1 + β cos θ) = 1 / [γ(1 − β cos θ′)]</div>
+<p>θ 是街区系中物体方向与速度的夹角，θ′ 是眼睛实际看到的角度。高速运动使更多侧方甚至后方的景物出现在运动前方；建筑轮廓、道路和天空都会变形。渲染器先获取观察点周围六个方向的街景，再对每个输出像素反解洛伦兹光行差，找到实际的街区光线。速度方向与身体朝向彼此独立。</p>
+<p>对本演示中的静态场景，这种光线方向变换等价于在观察者瞬时惯性系追踪过去光锥：已经包含静态景物的光程时间差与相对论外观，不能再把建筑简单压扁一次。动画行人、运动公交等非静态光源尚未加入。</p>
+<h3>02 / 长度测量：观察者的同一时刻</h3>
+<div class="equation">r′ = r⊥ + r∥ / γ　　L∥ = L₀ / γ<br>γ = 1 / √(1 − β²)　　横向长度保持不变</div>
+<p>切换到“长度测量”，沿当前<strong>速度方向</strong>压缩整个街区的空间坐标。此视图展示在观察者系中同时测量的位置，不是一张光学照片。右侧标尺比较一把沿速度方向放置、静长 20 m 的尺子。例如 β = 0.9 时 L = 8.72 m。“普通对照”关闭几何变换，方便在同一位置比较；红蓝移开关独立控制颜色。</p>
+<h3>03 / 多普勒颜色与画质</h3>
+<div class="equation">λobs = λ₀ / D　　参考绿光 λ₀ = 550 nm</div>
+<p>主视野和后视窗读数都使用对应视线经过当前几何变换后的真实光线方向。红蓝移不再按整个面取一个颜色：每个像素单独计算 D，路面和建筑保留纹理、明暗与材质差别。纹理包括沥青颗粒、步道铺砖、墙砖和玻璃反射示意；“高清 2× / 超清 3×”按画面 CSS 尺寸提高实际渲染分辨率。</p>
+<p>颜色仍是<strong>保留亮度的频移示意</strong>，并非从 RGB 材质精确还原完整光谱；紫外和红外继续显示为可辨别的示意色。完整光谱、相对论亮度增强与自动曝光未模拟，因此适合观察方向、形状与频移趋势，不用于预测真实相机色彩。</p>
+<h3>04 / 动力学、强制动与 β 输入</h3>
+<div class="equation">dp/dt = F　　v = p / (γm₀)<br>γ = √(1 + |p|² / m₀²c²)<br>同向加速度 a = F / (γ³m₀)　　E/c² = γm₀</div>
+<p>W / S 沿身体朝向施加街区系中的力。A / D 只转动身体；松手没有阻力，因此会滑行。静质量 m₀ 不变，“相对论质量”是 E/c² 的传统表述，不是人物体积膨胀。</p>
+<p><strong>B 强制动</strong>使用自适应反向力，按街区系减速度 12 m/s² 降低速度；从任意亚光速持续制动，约 0.84 s 内停止，且不会倒车。越接近光速，制动力越大，实际数值显示在右侧。S 保持普通反向施力，方便比较二者。建筑接触仍采用简化停车。</p>
+<p>手动输入 0 ≤ β &lt; 1 后按“设定”或 Enter，可沿身体朝向瞬时设置速度。该功能用于比较，不代表真实加速过程；β = 1、负值、空值与无穷均不接受。街区时钟以 dt 累计，自身固有时以 dτ = dt / γ 累计。自动演示可用方向键接管。</p>
+<p class="footnote">物理参考：<a href="https://arxiv.org/html/1806.11085v1" target="_blank" rel="noopener">Van Acoleyen &amp; Van Doorsselaere · Captain Einstein</a>（光锥外观、长度收缩与光行差）；<a href="https://www.spacetimetravel.org/aur" target="_blank" rel="noopener">Ute Kraus · Visual observations in high speed flight</a>；<a href="https://farside.ph.utexas.edu/teaching/355/Surveyhtml/node151.html" target="_blank" rel="noopener">UT Austin · Doppler Effect</a>；<a href="https://math.ucr.edu/home/baez/physics/Relativity/SR/mass.html" target="_blank" rel="noopener">UCR · Relativistic Mass</a>。</p>
+</dialog>
+<script>
+/* Single-file, dependency-free teaching simulation. All SI units use c = 10 m/s. */
+(() => {
+'use strict';
+const originalHTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+const $ = id => document.getElementById(id);
+const C = 10, M = 60, CELL = 80, MAX_DISTANCE = 155, BRAKE_DECEL = 12;
+const state = {x:0,z:-26,yaw:0,px:0,pz:0,vx:0,vz:0,speed:0,gamma:1,force:180,applied:0,fx:0,fz:0,paused:false,started:false,labTime:0,properTime:0,doppler:true,demo:false,demoTime:0,forceMode:0,braking:false,collisionAt:-10,view:'optical',quality:2};
+const held = new Set(), keyHeld = new Set(), pointerHeld = new Map();
+let toastTimer = 0, previousTime = 0, uiClock = 0, demoStage = -1, dialogWasPaused = false, gpuRenderer = null;
+const mainCanvas=$('world');
+const rearCanvas=$('rearCanvas'), rearCtx=rearCanvas.getContext('2d',{alpha:false});
+const mapCanvas=$('mapCanvas'), mapCtx=mapCanvas.getContext('2d',{alpha:false});
+const chartCanvas=$('accelChart'), chartCtx=chartCanvas.getContext('2d');
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const mix=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const hex=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+function toast(message,ms=2100){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),ms);}
+function syncVelocity(){state.gamma=Math.hypot(1,state.px/(M*C),state.pz/(M*C));state.vx=state.px/(M*state.gamma);state.vz=state.pz/(M*state.gamma);state.speed=Math.hypot(state.vx,state.vz);if(state.speed>=C){const scale=C*(1-Number.EPSILON)/state.speed;state.vx*=scale;state.vz*=scale;state.speed=Math.hypot(state.vx,state.vz);}}
+function start(){if(!state.started){state.started=true;$('startHint').style.opacity='0';}}
+function setPaused(value){state.paused=value;$('pauseScreen').classList.toggle('show',value&&!$('modelDialog').open);$('pauseButton').innerHTML=(value?'继续':'暂停')+'<kbd>Space</kbd>';$('runningStatus').textContent=value?'Ⅱ PAUSED':'● LIVE';$('liveDot').style.background=value?'#e7ba87':'var(--green)';previousTime=performance.now();refreshUI();}
+function cancelDemo(notify=false){if(state.demo){state.demo=false;$('demoButton').classList.remove('active');$('demoButton').querySelector('span').textContent='自动演示';if(notify)toast('已切换为手动控制');}}
+function releaseInputs(){keyHeld.clear();pointerHeld.clear();held.clear();state.applied=0;state.fx=0;state.fz=0;updateKeyUI();}
+function reset(notify=true){cancelDemo();releaseInputs();Object.assign(state,{x:0,z:-26,yaw:0,px:0,pz:0,vx:0,vz:0,speed:0,gamma:1,applied:0,fx:0,fz:0,started:false,labTime:0,properTime:0,demoTime:0,forceMode:0,braking:false,collisionAt:-10});setPaused(false);$('startHint').style.opacity='1';refreshUI();if(notify)toast('已回到街角，速度归零');}
+function setBeta(beta){if(!Number.isFinite(beta)||beta<0||beta>=1)return false;cancelDemo();releaseInputs();const gamma=1/Math.sqrt((1-beta)*(1+beta)),p=gamma*M*C*beta;state.px=p*Math.sin(state.yaw);state.pz=p*Math.cos(state.yaw);syncVelocity();$('betaInput').value=String(beta);$('betaFeedback').classList.remove('error');$('betaFeedback').textContent='已设定 β = '+beta+' · 沿身体朝向瞬时设速';start();setPaused(false);refreshUI();toast(beta===0?'速度已归零':'已设定 β = '+beta+' · 松手将保持惯性');return true;}
+function setView(view){state.view=view;document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});const labels={optical:['光学所见 · 光行差已开启','光行差 · 按光线方向逐像素计算'],measurement:['同刻测量 · 沿速度方向压缩至 1/γ','观察者同刻空间 · 不等同于照片'],classic:['普通对照 · 几何变换已关闭','用于比较 · 红蓝移仍可单独关闭']};$('opticsTag').textContent=labels[view][0];$('effectNote').textContent=labels[view][1];refreshUI();}
+function rebuildHeld(){held.clear();for(const k of keyHeld)held.add(keyMap[k]);for(const k of pointerHeld.values())held.add(k);updateKeyUI();}
+function updateKeyUI(){document.querySelectorAll('[data-control]').forEach(b=>b.classList.toggle('pressed',held.has(b.dataset.control)));}
+const keyMap={KeyW:'forward',ArrowUp:'forward',KeyS:'back',ArrowDown:'back',KeyA:'left',ArrowLeft:'left',KeyD:'right',ArrowRight:'right',KeyB:'brake'};
+window.addEventListener('keydown',e=>{
+ if($('modelDialog').open)return;
+ if(e.ctrlKey||e.metaKey||e.altKey)return;
+ if(e.target.matches('input,textarea,select,[contenteditable="true"]'))return;
+ const action=keyMap[e.code];
+ if(action){e.preventDefault();keyHeld.add(e.code);rebuildHeld();cancelDemo(true);start();if(state.paused)setPaused(false);}
+ else if(e.code==='Space'){if(e.target.matches('input,button'))return;e.preventDefault();if(!e.repeat)setPaused(!state.paused);}
+ else if(e.code==='KeyR'&&!e.repeat){e.preventDefault();reset();}
+});
+window.addEventListener('keyup',e=>{const action=keyMap[e.code];if(action){keyHeld.delete(e.code);rebuildHeld();}});
+window.addEventListener('blur',()=>{releaseInputs();if(state.started)setPaused(true);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseInputs();if(state.started)setPaused(true);}});
+function bindHold(button,action){button.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();button.setPointerCapture(e.pointerId);pointerHeld.set(e.pointerId,action);rebuildHeld();cancelDemo(true);start();if(state.paused)setPaused(false);});const end=e=>{pointerHeld.delete(e.pointerId);rebuildHeld();};button.addEventListener('pointerup',end);button.addEventListener('pointercancel',end);button.addEventListener('lostpointercapture',end);button.addEventListener('contextmenu',e=>e.preventDefault());}
+document.querySelectorAll('[data-control]').forEach(b=>bindHold(b,b.dataset.control));
+bindHold($('brakeButton'),'brake');
+$('pauseButton').addEventListener('click',()=>{releaseInputs();setPaused(!state.paused);$('pauseButton').blur();});
+$('resumeButton').addEventListener('click',()=>{setPaused(false);$('viewport').focus({preventScroll:true});});
+$('resetButton').addEventListener('click',()=>{reset();$('resetButton').blur();});
+$('forceSlider').addEventListener('input',e=>{state.force=Number(e.target.value);$('forceNumber').textContent=state.force;refreshUI();});
+$('dopplerToggle').addEventListener('change',e=>{state.doppler=e.target.checked;$('colorStatus').textContent=state.doppler?'逐像素频移示意 · 保留明暗细节':'原始材质颜色 · 频移读数仍保留';});
+$('qualitySelect').addEventListener('change',e=>{state.quality=Number(e.target.value);if(gpuRenderer)gpuRenderer.invalidate();});
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{setView(b.dataset.view);b.blur();}));
+$('measurementButton').addEventListener('click',()=>{setView('measurement');$('viewport').focus({preventScroll:true});});
+$('betaForm').addEventListener('submit',e=>{e.preventDefault();const raw=$('betaInput').value.trim(),beta=Number(raw);if(raw===''||!setBeta(beta)){$('betaFeedback').textContent='请输入 0 ≤ β < 1 的有限数值，例如 0.95。';$('betaFeedback').classList.add('error');$('betaInput').focus();return;}$('betaInput').blur();$('viewport').focus({preventScroll:true});});
+document.querySelectorAll('[data-beta]').forEach(b=>b.addEventListener('click',()=>{setBeta(Number(b.dataset.beta));b.blur();}));
+$('demoButton').addEventListener('click',()=>{if(state.demo){cancelDemo();return;}reset(false);state.demo=true;state.force=180;$('forceSlider').value='180';$('forceNumber').textContent='180';demoStage=-1;start();$('demoButton').classList.add('active');$('demoButton').querySelector('span').textContent='结束演示';$('demoButton').blur();toast('自动演示：以 180 N 持续向前施力',2800);});
+$('infoButton').addEventListener('click',()=>{dialogWasPaused=state.paused;releaseInputs();$('modelDialog').showModal();setPaused(true);});
+$('closeDialog').addEventListener('click',()=>$('modelDialog').close());
+$('modelDialog').addEventListener('click',e=>{const r=$('modelDialog').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('modelDialog').close();});
+$('modelDialog').addEventListener('close',()=>setPaused(dialogWasPaused));
+$('downloadButton').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([originalHTML],{type:'text/html;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='光速10米每秒的世界.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('已导出单文件 HTML，可离线打开');});
+$('fullscreenButton').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('viewport').requestFullscreen)await $('viewport').requestFullscreen();else toast('此浏览器不支持场景全屏');}catch{toast('全屏未开启，可使用浏览器全屏');}});
+let drag=null;
+mainCanvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;mainCanvas.setPointerCapture(e.pointerId);drag={x:e.clientX,id:e.pointerId};$('viewport').focus({preventScroll:true});});
+mainCanvas.addEventListener('pointermove',e=>{if(drag&&drag.id===e.pointerId&&!state.paused){cancelDemo();state.yaw+=(e.clientX-drag.x)*.004;drag.x=e.clientX;}});
+for(const type of ['pointerup','pointercancel','lostpointercapture'])mainCanvas.addEventListener(type,()=>drag=null);
+mainCanvas.style.touchAction='none';
+
+// Scene geometry. Meshes remain stationary in the street (laboratory) frame.
+const blockCache=new Map();
+const palettes=['#dfbba0','#b7c4b7','#d7c6ae','#cfa7a0','#b2c3c7','#d8cfb8','#b3bfa1','#c7ad91'];
+function face(points,color,normal,extra={}){const center=points.reduce((a,p)=>a.map((v,i)=>v+p[i]/points.length),[0,0,0]);const material=color==='#727d78'?1:color==='#879384'||color==='#a0ad86'?2:color==='#c7c6b5'?3:color==='#536e75'||color==='#9dafad'||color==='#476872'||color==='#456972'?5:0;return {points,color:typeof color==='string'?hex(color):color,normal,center,material,...extra};}
+function addBox(group,x,y,z,w,h,d,color){const a=x-w/2,b=x+w/2,c=z-d/2,e=z+d/2,t=y+h;const rgb=typeof color==='string'?hex(color):color;const faceStart=group.faces.length;
+ group.faces.push(face([[a,y,c],[b,y,c],[b,t,c],[a,t,c]],mix(rgb,[0,0,0],.06),[0,0,-1]),face([[b,y,e],[a,y,e],[a,t,e],[b,t,e]],mix(rgb,[0,0,0],.18),[0,0,1]),face([[a,y,e],[a,y,c],[a,t,c],[a,t,e]],mix(rgb,[0,0,0],.13),[-1,0,0]),face([[b,y,c],[b,y,e],[b,t,e],[b,t,c]],mix(rgb,[255,255,255],.07),[1,0,0]),face([[a,t,c],[b,t,c],[b,t,e],[a,t,e]],mix(rgb,[255,255,255],.15),[0,1,0]));
+ if(color==='#c7c6b5')for(let i=faceStart;i<group.faces.length;i++)group.faces[i].material=3;
+}
+function addPlane(g,x,z,w,d,color,y=.01){g.faces.push(face([[x-w/2,y,z-d/2],[x+w/2,y,z-d/2],[x+w/2,y,z+d/2],[x-w/2,y,z+d/2]],color,[0,1,0]));}
+function wallRect(g,x,z,side,along,y,w,h,color,text){let p,n;
+ if(side===0){n=[0,0,-1];p=[[x+along-w/2,y+h,z],[x+along+w/2,y+h,z],[x+along+w/2,y,z],[x+along-w/2,y,z]];}
+ if(side===1){n=[0,0,1];p=[[x+along+w/2,y+h,z],[x+along-w/2,y+h,z],[x+along-w/2,y,z],[x+along+w/2,y,z]];}
+ if(side===2){n=[-1,0,0];p=[[x,y+h,z+along+w/2],[x,y+h,z+along-w/2],[x,y,z+along-w/2],[x,y,z+along+w/2]];}
+ if(side===3){n=[1,0,0];p=[[x,y+h,z+along-w/2],[x,y+h,z+along+w/2],[x,y,z+along+w/2],[x,y,z+along-w/2]];}
+ g.faces.push(face(p,color,n,text?{text,tw:w,th:h}:{}));
+}
+function addBuilding(groups,ox,oz,spec,index,gx,gz){const [cx,cz,w,d,h]=spec,x=ox+cx,z=oz+cz;const g={x,z,r:Math.hypot(w,d,h)*.6,faces:[]};const color=palettes[(index+Math.abs(gx*3+gz*5))%palettes.length];addBox(g,x,.17,z,w,h,d,color);for(const f of g.faces)f.material=4;addBox(g,x,h+.17,z,w+.25,.3,d+.25,'#e9e0cd');
+ const rows=Math.floor((h-2.1)/2.9),colsX=Math.floor((w-1.2)/2.9),colsZ=Math.floor((d-1.2)/2.9);
+ for(let side=0;side<4;side++){
+  const len=side<2?w:d,cols=side<2?colsX:colsZ,wx=side===2?x-w/2-.015:side===3?x+w/2+.015:x,wz=side===0?z-d/2-.015:side===1?z+d/2+.015:z;
+  for(let row=0;row<rows;row++)for(let col=0;col<cols;col++){const along=(col-(cols-1)/2)*2.9;wallRect(g,wx,wz,side,along,3.7+row*2.9,1.35,1.6,'#dce0cf');wallRect(g,wx+(side===2?-.008:side===3?.008:0),wz+(side===0?-.008:side===1?.008:0),side,along,3.85+row*2.9,1.13,1.3,(col+row)%4===0?'#9dafad':'#536e75');}
+  const streetSide=(side===0&&cz<28)||(side===1&&cz>52)||(side===2&&cx<28)||(side===3&&cx>52);
+  if(streetSide){wallRect(g,wx,wz,side,0,.2,len*.64,2.4,'#3e6062');for(let n=-1;n<=1;n++)wallRect(g,wx+(side===2?-.03:side===3?.03:0),wz+(side===0?-.03:side===1?.03:0),side,n*len*.19,.23,.12,2.3,'#c4ccbb');const shops=['街角咖啡','花 与 书','便利商店','慢 光 面 包','街区书店','邮 政','日常杂货','午后茶室'];wallRect(g,wx+(side===2?-.06:side===3?.06:0),wz+(side===0?-.06:side===1?.06:0),side,0,2.7,len*.77,.75,index%3===0?'#447c69':index%3===1?'#c07f62':'#4d6b77',shops[index%8]);
+   if(index%2===0){if(side<2)addBox(g,x,2.4,wz+(side===0?-.5:.5),len*.8,.16,1.2,'#e5d3aa');else addBox(g,wx+(side===2?-.5:.5),2.4,z,1.2,.16,len*.8,'#e5d3aa');}
+  }
+ }
+ groups.push(g);return {x0:x-w/2-.3,x1:x+w/2+.3,z0:z-d/2-.3,z1:z+d/2+.3};
+}
+function addTree(groups,x,z,variant=0){const g={x,z,r:4,faces:[]};addBox(g,x,.12,z,.32,2.5,.32,'#827559');const colors=['#819b6a','#9bac74','#6e916b'];const y=2.7,rx=1.5,rz=1.5,ry=1.75;const vs=[[x-rx,y,z],[x,y,z-rz],[x+rx,y,z],[x,y,z+rz],[x,y+ry,z],[x,y-ry*.65,z]];
+ for(let k=0;k<4;k++){g.faces.push(face([vs[k],vs[(k+1)%4],vs[4]],colors[(k+variant)%3],null));g.faces.push(face([vs[(k+1)%4],vs[k],vs[5]],mix(hex(colors[(k+variant)%3]),[0,0,0],.08),null));}groups.push(g);}
+function addBench(groups,x,z,rot=false){const g={x,z,r:2,faces:[]};addBox(g,x,.55,z,rot?.6:2.1,.13,rot?2.1:.6,'#a2825c');addBox(g,x+(rot?.3:0),.65,z+(rot?0:.3),rot?.1:2.1,.6,rot?2.1:.1,'#ac9069');for(const k of [-1,1])addBox(g,x+(rot?0:k*.75),.12,z+(rot?k*.75:0),.13,.44,.13,'#4f5d50');groups.push(g);}
+function addPerson(groups,x,z,color){const g={x,z,r:2,faces:[]};addBox(g,x,.77,z,.43,.57,.27,color);addBox(g,x,1.4,z,.29,.32,.29,'#c69d7f');for(let k of [-1,1]){addBox(g,x+k*.13,.17,z,.15,.6,.2,'#535965');addBox(g,x+k*.31,.81,z,.14,.46,.18,color);}groups.push(g);}
+function addLamp(groups,x,z){const g={x,z,r:5,faces:[]};addBox(g,x,.12,z,.12,4.5,.12,'#626f64');addBox(g,x,4.5,z,.8,.12,.4,'#646f64');addBox(g,x,4.45,z,.62,.08,.32,'#e9dcb1');groups.push(g);}
+function addBus(groups,x,z){const g={x,z,r:6,faces:[]};addBox(g,x,.45,z,2.3,2.5,7,'#8eafaa');addBox(g,x,2.8,z,2.32,.25,7.1,'#d9d6bb');for(let k=-2;k<=2;k++){wallRect(g,x-1.17,z,2,k*1.1,1.55,.85,.95,'#476872');wallRect(g,x+1.17,z,3,k*1.1,1.55,.85,.95,'#476872');}wallRect(g,x,z-3.52,0,0,1.5,1.95,1.15,'#456972');wallRect(g,x,z+3.52,1,0,1.5,1.95,1.15,'#456972');for(let a of [-1,1])for(let b of [-1,1])addBox(g,x+a*1.1,.2,z+b*2.1,.35,.65,.8,'#414d4b');wallRect(g,x,z-3.54,0,0,2.66,1.6,.28,'#384b43','10 · 慢光环线');groups.push(g);}
+function createBlock(gx,gz){const ox=gx*CELL,oz=gz*CELL,groups=[],colliders=[];
+ const ground={x:ox+40,z:oz+40,r:58,faces:[]};addPlane(ground,ox+40,oz+40,80,80,'#879384',-.035);addPlane(ground,ox,oz+40,14,80,'#727d78',0);addPlane(ground,ox+40,oz,80,14,'#727d78',.003);addBox(ground,ox+40,.01,oz+40,65.7,.15,65.7,'#c7c6b5');addPlane(ground,ox+40,oz+41,23,24,'#a0ad86',.18);groups.push(ground);
+ const marks={x:ox,z:oz+35,r:64,faces:[]};for(let q=12;q<76;q+=9){addPlane(marks,ox,oz+q,.13,4,'#d7d3b6',.02);addPlane(marks,ox+q,oz,4,.13,'#d7d3b6',.022);}for(let q=-4;q<=4;q+=1.4){addPlane(marks,ox+q,oz+7.7,.75,2.5,'#d9dbcb',.025);addPlane(marks,ox+7.7,oz+q,2.5,.75,'#d9dbcb',.026);}for(let tick=0;tick<=20;tick++)addPlane(marks,ox+5.8,oz+10+tick,tick%5===0?.85:.4,.055,'#e1cf8d',.032);groups.push(marks);
+ const specs=[[17,21,14,21,11],[40,17,21,13,14],[62,20,16,19,17],[17,43,14,16,8],[62,43,16,16,10],[18,63,16,14,13],[40,63,20,14,8],[62,63,16,14,12]];
+ specs.forEach((s,i)=>colliders.push(addBuilding(groups,ox,oz,s,i,gx,gz)));
+ for(const [tx,tz] of [[8.8,28],[8.8,53],[71.2,29],[71.2,54],[29,8.8],[52,8.8],[29,71.2],[52,71.2],[33,34],[46,48]])addTree(groups,ox+tx,oz+tz,(gx+gz)%3+3);
+ addBench(groups,ox+29,oz+43,true);addBench(groups,ox+46,oz+34,false);addLamp(groups,ox+8,oz+12);addLamp(groups,ox+72,oz+67);
+ addPerson(groups,ox+8.5,oz+40,'#b38b72');addPerson(groups,ox+72,oz+31,'#718c9c');addPerson(groups,ox+34,oz+8.5,'#b5a070');
+ if((gx+gz)%3===0)addBus(groups,ox-4.3,oz+26);
+ return {groups,colliders,key:gx+','+gz};
+}
+function getBlock(gx,gz){const key=gx+','+gz;if(!blockCache.has(key))blockCache.set(key,createBlock(gx,gz));return blockCache.get(key);}
+function nearbyBlocks(){const gx=Math.floor(state.x/CELL),gz=Math.floor(state.z/CELL),blocks=[];for(let a=gx-2;a<=gx+1;a++)for(let b=gz-2;b<=gz+1;b++){if(Math.hypot((a+.5)*CELL-state.x,(b+.5)*CELL-state.z)<MAX_DISTANCE+65)blocks.push(getBlock(a,b));}if(blockCache.size>40){for(const key of blockCache.keys()){const [a,b]=key.split(',').map(Number);if(Math.abs(a-gx)>3||Math.abs(b-gz)>3)blockCache.delete(key);}}return blocks;}
+function collides(x,z){const gx=Math.floor(x/CELL),gz=Math.floor(z/CELL);return getBlock(gx,gz).colliders.some(b=>x>b.x0&&x<b.x1&&z>b.z0&&z<b.z1);}
+
+// Physics integrates momentum, avoiding an artificial speed clamp.
+function step(dt){
+ if(dt<=0)return;
+ let forward=held.has('forward')?1:0,back=held.has('back')?1:0,turn=(held.has('right')?1:0)-(held.has('left')?1:0),brake=held.has('brake');
+ if(state.demo){state.demoTime+=dt;const t=state.demoTime;forward=t<18?1:0;back=0;turn=0;brake=t>=23;
+  const stage=t<6?0:t<12?1:t<18?2:t<23?3:4;
+  if(stage!==demoStage){demoStage=stage;const msgs=['180 N 恒力起步：留意速度条与加速能力','迎面绿光移入紫外，后方移入红外','同样的力，速度增长已经明显变慢','松开施力：人物保持惯性滑行','自适应强制动：约 0.84 s 内停止'];toast(msgs[stage],3000);}
+ }
+ const forceMode=forward-back;state.forceMode=forceMode;state.braking=brake;
+ state.yaw+=turn*1.15*dt;state.yaw=((state.yaw+Math.PI)%(Math.PI*2)+Math.PI*2)%(Math.PI*2)-Math.PI;
+ let fx=0,fz=0;
+ if(brake&&state.speed>1e-8){const p=Math.hypot(state.px,state.pz),targetSpeed=Math.max(0,state.speed-BRAKE_DECEL*dt),targetBeta=targetSpeed/C,targetP=M*targetSpeed/Math.sqrt((1-targetBeta)*(1+targetBeta)),mag=Math.max(0,(p-targetP)/dt);fx=-state.px/p*mag;fz=-state.pz/p*mag;}
+ else if(!brake){fx=Math.sin(state.yaw)*state.force*forceMode;fz=Math.cos(state.yaw)*state.force*forceMode;}
+ state.fx=fx;state.fz=fz;state.applied=Math.hypot(fx,fz);
+ const oldX=state.x,oldZ=state.z;
+ state.px+=fx*dt;state.pz+=fz*dt;
+ if(brake&&Math.hypot(state.px,state.pz)<1e-6){state.px=0;state.pz=0;}
+ syncVelocity();
+ const nx=oldX+state.vx*dt,nz=oldZ+state.vz*dt;
+ if(collides(nx,nz)){state.px=0;state.pz=0;syncVelocity();if(state.labTime-state.collisionAt>2){toast('碰到建筑，已停止。转向后施力离开');state.collisionAt=state.labTime;}}
+ else{state.x=nx;state.z=nz;}
+ if(state.started){state.labTime+=dt;state.properTime+=dt/state.gamma;}
+ if(state.demo&&state.demoTime>24&&state.speed<.005){cancelDemo();toast('演示完成。按 W / S / A / D 自己探索',3500);}
+}
+
+function dopplerAt(dx,dy,dz){const distance=Math.hypot(dx,dy,dz);return distance>1e-8?state.gamma*(1+(state.vx*dx+state.vz*dz)/(C*distance)):1;}
+function observerRayToLab(n, view = state.view) {
+ const b=[state.vx/C,0,state.vz/C], b2=dot(b,b);
+ if(b2<1e-18||view==='classic')return n.slice();
+ const beta=state.speed/C,axis=[state.vx/state.speed,0,state.vz/state.speed],mu=clamp(dot(axis,n),-1,1),g=state.gamma;
+ // Inverse aberration maps an observed source direction to the laboratory ray.
+ // For a same-time measurement, invert only the spatial contraction instead.
+ const q=view==='optical'?n.map((v,i)=>(v-mu*axis[i])/g+((mu-1)+(1-beta))*axis[i]):n.map((v,i)=>v+(g-1)*mu*axis[i]),len=Math.hypot(...q);
+ return q.map(v=>v/len);
+}
+function simultaneousPosition(r) {
+ const b=[state.vx/C,0,state.vz/C],g=state.gamma;
+ const k=-g/(g+1)*dot(b,r); // (1/gamma - 1)/beta², stable near beta = 0.
+ return r.map((v,i)=>v+k*b[i]);
+}
+function fitCanvas(canvas,ratio=2){
+ const r=canvas.getBoundingClientRect(),dpr=ratio,w=Math.max(1,Math.round(r.width*dpr)),h=Math.max(1,Math.round(r.height*dpr));
+ if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
+ return {w,h,dpr};
+}
+function createRelativisticRenderer(canvas) {
+ const gl=canvas.getContext('webgl',{alpha:false,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:false})||canvas.getContext('experimental-webgl');
+ if(!gl)throw new Error('浏览器未启用 WebGL。请使用启用硬件加速的现代浏览器打开本地 HTML。');
+ const derivatives=!!gl.getExtension('OES_standard_derivatives');
+ const vertexSource=`
+ precision highp float;
+ attribute vec3 aPosition,aNormal,aColor;
+ attribute float aMaterial,aSign;
+ attribute vec2 aUV;
+ uniform vec3 uEye;
+ uniform int uFace;
+ varying vec3 vPosition,vNormal,vColor;
+ varying vec2 vUV;
+ varying float vMaterial,vSign;
+ void main(){
+  vec3 p=aPosition-uEye;vec3 q;
+  if(uFace==0)q=vec3(-p.z,-p.y,p.x);
+  else if(uFace==1)q=vec3(p.z,-p.y,-p.x);
+  else if(uFace==2)q=vec3(p.x,p.z,p.y);
+  else if(uFace==3)q=vec3(p.x,-p.z,-p.y);
+  else if(uFace==4)q=vec3(p.x,-p.y,p.z);
+  else q=vec3(-p.x,-p.y,-p.z);
+  gl_Position=vec4(q.xy,1.00025*q.z-.08001,q.z);
+  vPosition=aPosition;vNormal=aNormal;vColor=aColor;vUV=aUV;vMaterial=aMaterial;vSign=aSign;
+ }`;
+ const fragmentSource=(derivatives?'#extension GL_OES_standard_derivatives : enable\n':'')+`
+ precision highp float;
+ uniform sampler2D uNoise,uAtlas;
+ uniform vec3 uEye;
+ varying vec3 vPosition,vNormal,vColor;
+ varying vec2 vUV;
+ varying float vMaterial,vSign;
+ float edgeAA(float distance){return smoothstep(.012,.012+${derivatives?'max(fwidth(distance)*1.4,.002)':'.014'},distance);}
+ void main(){
+  vec3 normal=normalize(vNormal),rgb=vColor;
+  vec2 surface=abs(normal.y)>.5?vPosition.xz:(abs(normal.x)>.5?vPosition.zy:vPosition.xy);
+  float grain=texture2D(uNoise,surface*3.5).r;
+  float broad=texture2D(uNoise,surface*.12).g;
+  if(vMaterial>.5&&vMaterial<1.5){
+   rgb=rgb*(.78+.32*grain+.12*broad);
+   float fleck=texture2D(uNoise,surface*13.0).b;
+   rgb+=vec3(.035)*(fleck-.5);
+  }else if(vMaterial>1.5&&vMaterial<2.5){rgb*=.75+.5*broad+.12*grain;
+  }else if(vMaterial>2.5&&vMaterial<3.5){
+   vec2 tile=fract(surface*1.4);float edge=min(min(tile.x,1.0-tile.x),min(tile.y,1.0-tile.y));
+   rgb*=mix(.74,1.0,edgeAA(edge))*(.94+.10*grain);
+  }else if(vMaterial>3.5&&vMaterial<4.5&&abs(normal.y)<.5){
+   float row=floor(surface.y/.32);vec2 brick=fract(vec2(surface.x/.84+mod(row,2.0)*.5,surface.y/.32));
+   float edge=min(min(brick.x,1.0-brick.x),min(brick.y,1.0-brick.y));
+   rgb*=mix(.85,1.0,edgeAA(edge))*(.97+.06*grain);
+  }else if(vMaterial>4.5&&vMaterial<5.5){
+   rgb=mix(rgb,vec3(.58,.75,.78),.14+.22*pow(1.0-vUV.y,2.0));
+   float reflection=1.0-smoothstep(.0,.06,abs(vUV.x-vUV.y*.32-.3));rgb+=reflection*.07;
+  }else{rgb*=.97+.06*grain;}
+  float light=.72+.28*max(0.0,dot(normal,normalize(vec3(-.4,.85,-.35))));
+  rgb*=light;
+  if(vSign>=-.1){
+   vec2 cell=vec2(mod(vSign,4.0),floor(vSign/4.0));
+   float ink=texture2D(uAtlas,(cell+clamp(vUV,.002,.998))/4.0).a;
+   rgb=mix(rgb,vec3(.96,.97,.87),ink);
+  }
+  float distance=length(vPosition-uEye);float fog=1.0-exp(-pow(distance/195.0,2.0));
+  rgb=mix(rgb,vec3(.69,.77,.75),fog*.72);
+  gl_FragColor=vec4(rgb,1.0);
+ }`;
+ const screenVertex=`attribute vec2 aPoint;varying vec2 vPoint;void main(){vPoint=aPoint;gl_Position=vec4(aPoint,0.0,1.0);}`;
+ const screenFragment=`
+ precision highp float;
+ uniform samplerCube uEnvironment;
+ uniform vec2 uResolution;
+ uniform vec3 uBeta,uDirection;
+ uniform float uGamma,uYaw,uOneMinusBeta;
+ uniform int uView,uDoppler;
+ varying vec2 vPoint;
+ vec3 sky(vec3 n){
+  float above=clamp(n.y,0.0,1.0);
+  vec3 col=mix(vec3(.81,.86,.84),vec3(.43,.65,.80),pow(above,.48));
+  float cloud=sin(n.x*19.0+n.z*4.0)*sin(n.z*14.0-n.x*3.0);
+  col=mix(col,vec3(.9,.92,.91),smoothstep(.26,.72,cloud)*smoothstep(.03,.19,n.y)*.25);
+  float sun=pow(max(0.0,dot(n,normalize(vec3(-.5,.52,.7)))),500.0);
+  col+=vec3(.22,.17,.08)*sun;
+  return mix(vec3(.48,.55,.47),col,smoothstep(-.06,.01,n.y));
+ }
+ void main(){
+  // The principal ray is at 43% of the image height, matching the crosshair.
+  vec2 pixel=(vPoint*.5+.5)*uResolution;
+  vec3 local=normalize(vec3((pixel.x-uResolution.x*.5)/(uResolution.x*.65),(pixel.y-uResolution.y*.57)/(uResolution.x*.65),1.0));
+  float s=sin(uYaw),c=cos(uYaw);vec3 observed=vec3(local.x*c+local.z*s,local.y,-local.x*s+local.z*c);
+  vec3 ray=observed;
+  float b2=dot(uBeta,uBeta);
+  if(b2>1e-16&&uView!=2){
+   float mu=clamp(dot(uDirection,observed),-1.0,1.0);
+   if(uView==0)ray=normalize((observed-mu*uDirection)/uGamma+((mu-1.0)+uOneMinusBeta)*uDirection);
+   else ray=normalize(observed+(uGamma-1.0)*mu*uDirection);
+  }
+  vec4 scene=textureCube(uEnvironment,ray);
+  vec3 rgb=scene.rgb+sky(ray)*(1.0-scene.a);
+  if(uDoppler==1&&b2>1e-12){
+   // Each output pixel receives its own frequency shift, including ground pixels.
+   float mu=clamp(dot(uDirection,ray),-1.0,1.0);
+   float D=uGamma*((1.0+mu)-uOneMinusBeta*mu);
+   if(uView==0){float observedMu=clamp(dot(uDirection,observed),-1.0,1.0);D=1.0/(uGamma*((1.0-observedMu)+uOneMinusBeta*observedMu));}
+   float shift=clamp(log(max(D,.00001)),-4.0,4.0);
+   float luma=dot(rgb,vec3(.2126,.7152,.0722));
+   vec3 filtered=rgb*exp(vec3(-.85,.015,.85)*shift);
+   filtered*=luma/max(.001,dot(filtered,vec3(.2126,.7152,.0722)));
+   rgb=filtered/(1.0+max(vec3(0.0),filtered-1.0)*.45);
+  }
+  float vignette=1.0-.11*pow(length(vPoint*.65),2.0);
+  gl_FragColor=vec4(clamp(rgb*vignette,0.0,1.0),1.0);
+ }`;
+ function shader(type,source){const sh=gl.createShader(type);gl.shaderSource(sh,source);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(sh));return sh;}
+ function program(vs,fs){const p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,vs));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return p;}
+ const sceneProgram=program(vertexSource,fragmentSource),screenProgram=program(screenVertex,screenFragment);
+ const sceneUniform=Object.fromEntries(['uEye','uFace','uNoise','uAtlas'].map(k=>[k,gl.getUniformLocation(sceneProgram,k)]));
+ const screenUniform=Object.fromEntries(['uEnvironment','uResolution','uBeta','uDirection','uGamma','uYaw','uOneMinusBeta','uView','uDoppler'].map(k=>[k,gl.getUniformLocation(screenProgram,k)]));
+ const sceneBuffer=gl.createBuffer(),screenBuffer=gl.createBuffer();
+ gl.bindBuffer(gl.ARRAY_BUFFER,screenBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+ const environment=gl.createTexture(),framebuffer=gl.createFramebuffer(),depth=gl.createRenderbuffer();
+ gl.bindTexture(gl.TEXTURE_CUBE_MAP,environment);gl.texParameteri(gl.TEXTURE_CUBE_MAP,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_CUBE_MAP,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_CUBE_MAP,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_CUBE_MAP,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+ const noise=gl.createTexture();gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,noise);
+ const noiseData=new Uint8Array(256*256*4);let seed=94623;for(let i=0;i<noiseData.length;i+=4){for(let j=0;j<3;j++){seed=(Math.imul(seed,1664525)+1013904223)|0;noiseData[i+j]=(seed>>>24);}noiseData[i+3]=255;}
+ gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,256,256,0,gl.RGBA,gl.UNSIGNED_BYTE,noiseData);gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.REPEAT);
+ const atlasTexture=gl.createTexture(),atlasCanvas=document.createElement('canvas');atlasCanvas.width=2048;atlasCanvas.height=256;const atlasCtx=atlasCanvas.getContext('2d'),signs=new Map();
+ function signIndex(text){if(!signs.has(text)){if(signs.size>=16)return -1;const index=signs.size;signs.set(text,index);atlasCtx.fillStyle='#ffffff';atlasCtx.font='500 38px "PingFang SC","Microsoft YaHei",sans-serif';atlasCtx.textAlign='center';atlasCtx.textBaseline='middle';atlasCtx.fillText(text,(index%4)*512+256,Math.floor(index/4)*64+32,465);}return signs.get(text);}
+ function uploadAtlas(){gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,atlasTexture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,atlasCanvas);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);}
+ const attributeSpec=[['aPosition',3,0],['aNormal',3,3],['aColor',3,6],['aMaterial',1,9],['aUV',2,10],['aSign',1,12]].map(([name,size,offset])=>({location:gl.getAttribLocation(sceneProgram,name),size,offset}));
+ const screenLocation=gl.getAttribLocation(screenProgram,'aPoint');
+ let meshKey='',vertexCount=0,cubeSize=0,dirty=true,lastCamera='',contextLost=false;
+ canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();contextLost=true;toast('图形上下文暂时丢失，请重新打开 HTML。',8000);});
+ function updateMesh(blocks){const key=blocks.map(b=>b.key).join('|');if(key===meshKey)return;meshKey=key;const data=[],uv=[[0,0],[1,0],[1,1],[0,1]];
+  for(const block of blocks)for(const group of block.groups)for(const f of group.faces){
+   let normal=f.normal;if(!normal){const [a,b,c]=f.points,u=b.map((v,i)=>v-a[i]),v=c.map((q,i)=>q-a[i]),n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]],len=Math.hypot(...n)||1;normal=n.map(v=>v/len);}
+   const sign=f.text?signIndex(f.text):-1;
+   for(let t=1;t<f.points.length-1;t++)for(const i of [0,t,t+1])data.push(...f.points[i],...normal,...f.color.map(v=>v/255),f.material||0,...uv[i%4],sign);
+  }
+  vertexCount=data.length/13;gl.bindBuffer(gl.ARRAY_BUFFER,sceneBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);uploadAtlas();dirty=true;
+ }
+ function allocateCube(){const wanted=Math.min(gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE),state.quality===3?2048:state.quality===1?512:1024);if(cubeSize===wanted)return;cubeSize=wanted;gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_CUBE_MAP,environment);for(let i=0;i<6;i++)gl.texImage2D(gl.TEXTURE_CUBE_MAP_POSITIVE_X+i,0,gl.RGBA,cubeSize,cubeSize,0,gl.RGBA,gl.UNSIGNED_BYTE,null);gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,cubeSize,cubeSize);dirty=true;}
+ function disableAttributes(){for(let i=0;i<8;i++)gl.disableVertexAttribArray(i);}
+ function captureEnvironment(){
+  gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffer);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);gl.viewport(0,0,cubeSize,cubeSize);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.disable(gl.BLEND);gl.clearColor(0,0,0,0);gl.useProgram(sceneProgram);
+  disableAttributes();gl.bindBuffer(gl.ARRAY_BUFFER,sceneBuffer);for(const a of attributeSpec){if(a.location<0)continue;gl.enableVertexAttribArray(a.location);gl.vertexAttribPointer(a.location,a.size,gl.FLOAT,false,52,a.offset*4);}
+  gl.uniform3f(sceneUniform.uEye,state.x,1.72,state.z);gl.uniform1i(sceneUniform.uNoise,1);gl.uniform1i(sceneUniform.uAtlas,2);gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,noise);gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,atlasTexture);
+  for(let i=0;i<6;i++){gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_CUBE_MAP_POSITIVE_X+i,environment,0);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw new Error('环境纹理缓冲创建失败');gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniform1i(sceneUniform.uFace,i);gl.drawArrays(gl.TRIANGLES,0,vertexCount);}
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);dirty=false;
+ }
+ function composite(w,h,yaw){
+  gl.viewport(0,0,w,h);gl.disable(gl.DEPTH_TEST);gl.useProgram(screenProgram);disableAttributes();gl.bindBuffer(gl.ARRAY_BUFFER,screenBuffer);gl.enableVertexAttribArray(screenLocation);gl.vertexAttribPointer(screenLocation,2,gl.FLOAT,false,0,0);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_CUBE_MAP,environment);gl.uniform1i(screenUniform.uEnvironment,0);gl.uniform2f(screenUniform.uResolution,w,h);gl.uniform3f(screenUniform.uBeta,state.vx/C,0,state.vz/C);gl.uniform3f(screenUniform.uDirection,state.speed>1e-9?state.vx/state.speed:0,0,state.speed>1e-9?state.vz/state.speed:1);gl.uniform1f(screenUniform.uOneMinusBeta,1-state.speed/C);gl.uniform1f(screenUniform.uGamma,state.gamma);gl.uniform1f(screenUniform.uYaw,yaw);gl.uniform1i(screenUniform.uView,state.view==='optical'?0:state.view==='measurement'?1:2);gl.uniform1i(screenUniform.uDoppler,state.doppler?1:0);gl.drawArrays(gl.TRIANGLES,0,3);
+ }
+ return {invalidate(){dirty=true;},render(blocks,main,rear,rearContext){if(contextLost)return;updateMesh(blocks);allocateCube();const camera=state.x.toFixed(6)+','+state.z.toFixed(6);if(dirty||camera!==lastCamera){captureEnvironment();lastCamera=camera;}composite(rear.w,rear.h,state.yaw+Math.PI);rearContext.drawImage(canvas,0,canvas.height-rear.h,rear.w,rear.h,0,0,rear.w,rear.h);composite(main.w,main.h,state.yaw);},getInfo:()=>({renderer:'WebGL cube-ray',cubeSize,vertexCount,output:[canvas.width,canvas.height]})};
+}
+
+function drawMap(){const {w,h}=fitCanvas(mapCanvas,1.5),ctx=mapCtx;ctx.fillStyle='#19261f';ctx.fillRect(0,0,w,h);const scale=w/108;
+ ctx.save();ctx.translate(w/2,h/2);const ox=state.x,oz=state.z;const gx=Math.floor(ox/CELL),gz=Math.floor(oz/CELL);
+ for(let a=gx-1;a<=gx+1;a++)for(let b=gz-1;b<=gz+1;b++){const x=(a*CELL-ox)*scale,z=-(b*CELL-oz)*scale;ctx.fillStyle='#364338';ctx.fillRect(x-7*scale,z-80*scale,14*scale,80*scale);ctx.fillRect(x,z-7*scale,80*scale,14*scale);for(const box of getBlock(a,b).colliders){ctx.fillStyle='#68725b';ctx.fillRect((box.x0-ox)*scale,-(box.z1-oz)*scale,(box.x1-box.x0)*scale,(box.z1-box.z0)*scale);}}
+ ctx.fillStyle='#d2ef9c22';ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,26*scale,-Math.PI/2+state.yaw-.53,-Math.PI/2+state.yaw+.53);ctx.closePath();ctx.fill();
+ // +z is north. The map stays north-up while the observer turns.
+ ctx.restore();
+ ctx.save();ctx.translate(w/2,h/2);ctx.strokeStyle='#8bb6e9';ctx.lineWidth=2*scale;if(state.speed>.02){const length=10+state.speed;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(state.vx/state.speed*length*scale,-state.vz/state.speed*length*scale);ctx.stroke();}
+ ctx.rotate(state.yaw);ctx.fillStyle='#d2ef9c';ctx.beginPath();ctx.moveTo(0,-7*scale);ctx.lineTo(-4*scale,4*scale);ctx.lineTo(4*scale,4*scale);ctx.closePath();ctx.fill();ctx.fillStyle='#18251e';ctx.beginPath();ctx.arc(0,0,1.3*scale,0,Math.PI*2);ctx.fill();ctx.restore();
+}
+function drawChart(){const {w,h,dpr}=fitCanvas(chartCanvas,2),ctx=chartCtx;ctx.clearRect(0,0,w,h);const L=27*dpr,R=8*dpr,T=9*dpr,B=20*dpr,cw=w-L-R,ch=h-T-B;ctx.font=8*dpr+'px '+getComputedStyle(document.body).getPropertyValue('--mono');ctx.textBaseline='middle';
+ ctx.strokeStyle='#34412e';ctx.lineWidth=1;for(const y of [0,.5,1]){ctx.beginPath();ctx.moveTo(L,T+ch*(1-y));ctx.lineTo(L+cw,T+ch*(1-y));ctx.stroke();ctx.fillStyle='#8e9f83';ctx.textAlign='right';ctx.fillText(Math.round(y*100)+'%',L-5*dpr,T+ch*(1-y));}
+ ctx.setLineDash([3*dpr,3*dpr]);ctx.strokeStyle='#819076';ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L+cw,T);ctx.stroke();ctx.setLineDash([]);
+ ctx.beginPath();ctx.moveTo(L,T+ch);for(let i=0;i<=100;i++){const x=i/100,y=Math.pow(1-x*x,1.5);ctx.lineTo(L+x*cw,T+(1-y)*ch);}ctx.lineTo(L+cw,T+ch);ctx.closePath();const gradient=ctx.createLinearGradient(0,T,0,T+ch);gradient.addColorStop(0,'#e4b78721');gradient.addColorStop(1,'#e4b78703');ctx.fillStyle=gradient;ctx.fill();
+ ctx.strokeStyle='#edc295';ctx.lineWidth=1.7*dpr;ctx.beginPath();for(let i=0;i<=100;i++){const x=i/100,y=Math.pow(1-x*x,1.5);if(i===0)ctx.moveTo(L+x*cw,T+(1-y)*ch);else ctx.lineTo(L+x*cw,T+(1-y)*ch);}ctx.stroke();
+ const beta=state.speed/C,x=L+beta*cw,y=T+(1-Math.pow(1-beta*beta,1.5))*ch;ctx.setLineDash([2*dpr,3*dpr]);ctx.strokeStyle='#b69d7d66';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,T+ch);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#f7d6aa';ctx.beginPath();ctx.arc(x,y,3.1*dpr,0,2*Math.PI);ctx.fill();ctx.fillStyle='#90a083';ctx.textAlign='center';for(const b of [0,.5,1])ctx.fillText(b===1?'1.0c':b===0?'0':'0.5c',L+b*cw,T+ch+12*dpr);
+}
+function shiftLabel(D){const wave=550/D;return Math.abs(D-1)<.002?'无频移':D>1?(wave<380?'蓝移 · 紫外':'蓝移'):(wave>780?'红移 · 红外':'红移');}
+function refreshUI(){const beta=state.speed/C,g=state.gamma,ratio=1/(g*g*g),front=observerRayToLab([Math.sin(state.yaw),0,Math.cos(state.yaw)]),rear=observerRayToLab([-Math.sin(state.yaw),0,-Math.cos(state.yaw)]),frontD=dopplerAt(...front),rearD=dopplerAt(...rear),wave=550/frontD;
+ const speedText=beta>=.99999?'9.999…':state.speed.toFixed(beta>.999?4:2);$('speedNumber').textContent=speedText;$('speedDisplay').classList.toggle('precise',speedText.length>5);$('speedFill').style.width=beta*100+'%';$('betaNumber').textContent=(beta>=.99999?'99.999…':(beta*100).toFixed(beta>.999?3:1))+'% c';
+ $('gammaNumber').innerHTML=(g>1e5?g.toExponential(2):g.toFixed(2))+'<small>×</small>';$('massNumber').innerHTML=(g*M>1e5?(g*M).toExponential(2):(g*M).toFixed(1))+'<small>kg</small>';$('accelNumber').innerHTML=(state.force/M*ratio).toFixed(2)+'<small>m/s²</small>';$('appliedNumber').innerHTML=(state.applied>9999?(state.applied/1000).toFixed(state.applied>1e6?0:1)+'<small>kN</small>':Math.round(state.applied)+'<small>N</small>');$('accelPercent').textContent=(ratio*100).toFixed(ratio<.1?1:0)+'%';
+ $('appliedCaption').textContent=state.paused?'实验已暂停':state.braking?'自适应强制动 · 12 m/s²':state.applied<.1?'松手，保持惯性运动':state.forceMode>0?'沿身体朝向施力':'沿身体朝向反向施力';
+ $('frontWave').textContent=wave<100?wave.toFixed(1):Math.round(wave);$('rearWave').textContent=Math.round(550/rearD)+' nm';$('dopplerValue').textContent='D = '+frontD.toFixed(2);$('frontShift').textContent=shiftLabel(frontD);$('rearShift').textContent=shiftLabel(rearD);$('frontShift').style.color=frontD>1.002?'var(--blue)':frontD<.998?'var(--red)':'#c0cdb9';$('rearShift').style.color=rearD>1.002?'var(--blue)':rearD<.998?'var(--red)':'#c0cdb9';$('spectrum').style.setProperty('--mark',clamp((wave-380)/400*100,0,100)+'%');
+ $('labClock').textContent=state.labTime.toFixed(1)+' s';$('properClock').textContent=state.properTime.toFixed(1)+' s';$('contractedLength').textContent=(20/g).toFixed(20/g<.01?4:2)+' m';$('contractedBar').style.width=100/g+'%';$('contractionFactor').textContent=(1/g).toFixed(1/g<.001?6:3);
+ const status=state.paused?'已暂停':state.demo?'自动演示':state.braking?'强制动中':state.applied>.1?(state.forceMode>0?'向前施力':'向后施力'):state.speed>.02?'惯性滑行':'静止';const detail=state.started?'朝向 '+((state.yaw*180/Math.PI+360)%360).toFixed(0)+'°　·　位移 '+Math.hypot(state.x,state.z+26).toFixed(1)+' m':'按住 W 或 ↑ 开始加速';$('motionStatus').innerHTML='<b>'+status+'</b> &nbsp; · &nbsp; '+detail;
+ document.querySelectorAll('[data-beta]').forEach(b=>b.classList.toggle('active',Math.abs(Number(b.dataset.beta)-beta)<.003));drawChart();
+}
+function frame(now){const elapsed=previousTime?clamp((now-previousTime)/1000,0,.06):0;previousTime=now;
+ if(!state.paused){const steps=Math.max(1,Math.ceil(elapsed/.012));for(let i=0;i<steps;i++)step(elapsed/steps);}
+ const blocks=nearbyBlocks(),main=fitCanvas(mainCanvas,state.quality),rear=fitCanvas(rearCanvas,Math.min(2,state.quality));
+ if(!gpuRenderer){try{gpuRenderer=createRelativisticRenderer(mainCanvas);}catch(error){console.error(error);const banner=document.createElement('div');banner.className='render-error';banner.textContent='无法初始化高清渲染：'+error.message;$('viewport').appendChild(banner);setPaused(true);return;}}
+ gpuRenderer.render(blocks,main,rear,rearCtx);drawMap();uiClock+=elapsed;if(uiClock>.07){refreshUI();uiClock=0;}requestAnimationFrame(frame);
+}
+// Read-only diagnostics make numerical verification possible without changing controls.
+Object.defineProperty(window,'slowLightLab',{value:Object.freeze({getState:()=>({...state}),constants:Object.freeze({c:C,restMass:M,brakeDeceleration:BRAKE_DECEL}),observerRayToLab:(n,view)=>observerRayToLab(n,view),simultaneousPosition:r=>simultaneousPosition(r),getRenderInfo:()=>gpuRenderer?.getInfo()||null,momentumToVelocity:(px,pz)=>{const gamma=Math.hypot(1,px/(M*C),pz/(M*C));return {vx:px/(M*gamma),vz:pz/(M*gamma),gamma};},longitudinalAcceleration:(force,beta)=>force/M*Math.pow(1-beta*beta,1.5)})});
+refreshUI();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
