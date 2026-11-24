@@ -1,0 +1,7 @@
+# OS metadata
+.DS_Store
+._*
+Thumbs.db
+
+# Test working dir (regenerate: copy index.html dist\index.html)
+/dist/

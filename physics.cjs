@@ -2,7 +2,7 @@
 const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
-const html = fs.readFileSync(require('node:path').join(__dirname, '../dist/index.html'), 'utf8');
+const html = fs.readFileSync(require('node:path').join(__dirname, './dist/index.html'), 'utf8');
 let js = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 js = js.replace('refreshUI();requestAnimationFrame(frame);', 'globalThis.testAPI={state,step,held,reset,syncVelocity,dopplerAt,setBeta,observerRayToLab,simultaneousPosition};');
 const noop = () => {};
